@@ -14,7 +14,7 @@ public class Mall_Customers {
         SparkSession ss= SparkSession.builder().appName("Tp spark ml").master("local[*]").getOrCreate();
         Dataset<Row> dataset =ss.read().option("inferSchema",true).option("header",true).csv("Mall_Customers.csv");
         VectorAssembler assembler=new VectorAssembler().setInputCols(new String[]{"Age","Annual Income (k$)","Spending Score (1-100)"}
-        ).setOutputCol("Features");
+        ).setOutputCol("features");
         Dataset<Row> assembleDataset = assembler.transform(dataset);
         MinMaxScaler scaler = new MinMaxScaler().setInputCol("Features").setOutputCol("normalizeFeatures");
         Dataset<Row> normalizeDS = scaler.fit(assembleDataset).transform(assembleDataset);
